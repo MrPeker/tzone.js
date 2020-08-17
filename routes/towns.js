@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const slugify = require('slugify')
+const slugify = require('slugify');
 
 const province = require('./../datasets/province');
 const counties = require('./../datasets/county');
 const towns = require('./../datasets/towns');
-
 
 router.get('/', (req, res) => {
   res.json(towns);
@@ -67,6 +66,5 @@ router.get('/:province/:county/:town', (req, res) => {
     res.status(404);
   }
 });
-
 
 module.exports = router;

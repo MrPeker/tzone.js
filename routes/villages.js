@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs');
-const slugify = require('slugify')
+const slugify = require('slugify');
 
 const province = require('./../datasets/province');
 const counties = require('./../datasets/county');
 const villages = require('./../datasets/village');
-
 
 router.get('/', (req, res) => {
   res.json(villages);
@@ -18,7 +17,7 @@ router.get('/:province', (req, res) => {
     return slugify(o.provinceName.toLowerCase()) === query;
   });
 
-  console.log(findProvince)
+  console.log(findProvince);
 
   if (findProvince) {
     res.json(findProvince);
@@ -69,6 +68,5 @@ router.get('/:province/:county/:town', (req, res) => {
     res.status(404);
   }
 });
-
 
 module.exports = router;
