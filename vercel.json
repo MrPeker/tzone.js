@@ -1,17 +1,33 @@
 {
   "version": 2,
-  "builds": [{
-    "src": "index.js",
-    "use": "@now/node-server"
-  }],
-
-  "routes": [{
-    "headers": {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@now/node-server",
+      "config": {
+        "includeFiles": [
+          "datasets/province.json",
+          "datasets/county.json",
+          "datasets/town.json",
+          "datasets/village.json"
+        ],
+        "bundle": false
+      }
     },
-    "src": "/.*",
-    "dest": "/index.js"
-  }]
+    {
+      "src": "datasets/*",
+      "use": "@now/static"
+    }
+  ],
+  "routes": [
+    {
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
+      },
+      "src": "/.*",
+      "dest": "/index.js"
+    }
+  ]
 }

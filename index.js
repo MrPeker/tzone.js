@@ -1,29 +1,27 @@
 const express = require("express");
+const fs = require('fs');
 const app = express();
 
 const port = 5000;
+
+const provinces = require('./routes/provinces');
+const counties = require('./routes/counties');
+const towns = require('./routes/towns');
+const villages = require('./routes/villages');
 
 // Body parser
 app.use(express.urlencoded({ extended: false }));
 
 // Home route
 app.get("/", (req, res) => {
-  res.send("Welcome to a basic express App");
+  res.send("Welcome to a tzone.js API");
 });
 
-// Mock API
-app.get("/users", (req, res) => {
-  res.json([
-    { name: "William", location: "Abu Dhabi" },
-    { name: "Chris", location: "Vegas" }
-  ]);
-});
+app.use("/provinces", provinces);
+app.use("/counties", counties);
+app.use("/towns", towns);
+app.use("/villages", villages);
 
-app.post("/user", (req, res) => {
-  const { name, location } = req.body;
-
-  res.send({ status: "User created", name, location });
-});
 
 // Listen on port 5000
 app.listen(port, () => {
